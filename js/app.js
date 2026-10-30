@@ -574,19 +574,26 @@
 
         const messageText = textLines.join('\n');
 
-        // Отправка ботом в Telegram
-        if (S.telegramBot && S.telegramBot.token && S.telegramBot.chatId) {
+        // Безопасная отправка заявки через защищённый серверный эндпоинт
+        if (S.bookingWebhookUrl) {
           try {
-            await fetch(`https://api.telegram.org/bot${S.telegramBot.token}/sendMessage`, {
+            await fetch(S.bookingWebhookUrl, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
-                chat_id: S.telegramBot.chatId,
-                text: messageText
+                text: messageText,
+                apartment: a ? a.title : '',
+                name: name,
+                phone: phone,
+                inDate: inDate,
+                outDate: outDate,
+                guests: guests,
+                social: social,
+                comment: comment
               })
             });
           } catch (err) {
-            console.warn('Telegram bot notify error:', err);
+            console.warn('Booking webhook notify error:', err);
           }
         }
 

@@ -16,12 +16,9 @@ window.SITE = {
     telegram: 'ooolegend',
     max: 'https://max.ru/u/f9LHodD0cOKKByVmPIS2hVhvh_7PQO218go_NfkDVp463nALT7OLuE_IDNM'
   },
-  // Настройки Telegram-бота для мгновенных уведомлений менеджеру о заявках
-  telegramBot: {
-    name: 'my_apart_pro_bot',
-    token: '8955350576:AAHyzNyTHfGAivoEj4BmMABnCQrx5MOsCZU',
-    chatId: '958365774'
-  },
+  // Безопасный серверный эндпоинт для отправки заявок в Telegram
+  // (Токен бота и chat_id хранятся в защищённых переменных на сервере / в облаке)
+  bookingWebhookUrl: 'https://functions.yandexcloud.net/d4es8drqeld725d4sip8',
   // Реквизиты исполнителя (ЗоЗПП ст. 8–9) и оператора ПДн (152-ФЗ)
   legal: {
     name: 'ООО «Компания ПРО»',
