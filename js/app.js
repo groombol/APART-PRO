@@ -577,9 +577,11 @@
         // Безопасная отправка заявки через защищённый серверный эндпоинт
         if (S.bookingWebhookUrl) {
           try {
+            const isGoogle = S.bookingWebhookUrl.includes('script.google.com');
             await fetch(S.bookingWebhookUrl, {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
+              mode: isGoogle ? 'no-cors' : 'cors',
+              headers: { 'Content-Type': 'text/plain;charset=utf-8' },
               body: JSON.stringify({
                 text: messageText,
                 apartment: a ? a.title : '',
