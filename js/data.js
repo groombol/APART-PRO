@@ -18,7 +18,7 @@ window.SITE = {
   },
   // Безопасный серверный эндпоинт для отправки заявок в Telegram
   // (Токен бота и chat_id хранятся в защищённых переменных на сервере / в облаке)
-  bookingWebhookUrl: 'https://script.google.com/macros/s/AKfycbxT8UPjcqtuEw-ENWewWXEfjTXxdpEfvrARpEsp8lhSLyMBULo2qeWlP4sh_fjw9_Do_w/exec',
+  bookingWebhookUrl: 'https://script.google.com/macros/s/AKfycby8WZgw8pB02KkxbOk2tLvtI-vPqBNhACYdpzyiFR3mR6YH8Ghtb41S0dnOG_Zg_jM0Rg/exec',
   // Реквизиты исполнителя (ЗоЗПП ст. 8–9) и оператора ПДн (152-ФЗ)
   legal: {
     name: 'ООО «Компания ПРО»',
