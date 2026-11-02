@@ -693,10 +693,10 @@ li { text-wrap: pretty; }
   background: var(--c-bg); border-radius: 24px 24px 0 0; padding: var(--sp-4) 1.25rem calc(var(--sp-3) + env(safe-area-inset-bottom));
   transform: translateY(100%); transition: transform .45s var(--ease);
   scrollbar-width: thin;
-  scrollbar-color: rgba(173, 107, 60, 0.55) transparent;
+  scrollbar-color: var(--c-accent) transparent;
 }
 .modal__dialog::-webkit-scrollbar {
-  width: 7px;
+  width: 8px;
 }
 .modal__dialog::-webkit-scrollbar-button {
   display: none !important;
@@ -705,14 +705,14 @@ li { text-wrap: pretty; }
 }
 .modal__dialog::-webkit-scrollbar-track {
   background: transparent;
-  margin: 18px 0;
+  margin: 14px 0;
 }
 .modal__dialog::-webkit-scrollbar-thumb {
-  background: rgba(173, 107, 60, 0.55) !important;
+  background: var(--c-accent) !important;
   border-radius: 999px !important;
 }
 .modal__dialog::-webkit-scrollbar-thumb:hover {
-  background: var(--c-accent) !important;
+  background: var(--c-accent-dark) !important;
 }
 .modal.is-open .modal__dialog { transform: none; }
 .modal__close { position: absolute; right: 1rem; top: 1rem; }
@@ -1219,13 +1219,18 @@ body.is-ready .hero__anim:nth-child(5) { opacity: 1; transform: translateY(0); t
 }
 
 /* =========================================================================
-   CUSTOM SCROLLBAR (Right edge scrollbar: terracotta & thicker, NO arrows)
+   CUSTOM SCROLLBAR (Right edge scrollbar: terracotta pill, strictly NO arrows)
    ========================================================================= */
 ::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
 }
-::-webkit-scrollbar-button {
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-button:single-button,
+::-webkit-scrollbar-button:vertical:decrement,
+::-webkit-scrollbar-button:vertical:increment,
+::-webkit-scrollbar-button:horizontal:decrement,
+::-webkit-scrollbar-button:horizontal:increment {
   display: none !important;
   width: 0 !important;
   height: 0 !important;
@@ -1235,7 +1240,7 @@ body.is-ready .hero__anim:nth-child(5) { opacity: 1; transform: translateY(0); t
 }
 ::-webkit-scrollbar-thumb {
   background: var(--c-accent) !important; /* Terracotta */
-  border-radius: 6px !important;
+  border-radius: 999px !important; /* True smooth pill */
   border: 2px solid var(--c-bg) !important;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -1333,3 +1338,176 @@ body.is-ready .hero__anim:nth-child(5) { opacity: 1; transform: translateY(0); t
   z-index: -1;
   pointer-events: auto;
 }
+
+
+/* ---------- Hero Question Navigators (App-like UX) ---------- */
+.hero__questions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: var(--sp-3) 0 var(--sp-4);
+  max-width: 440px;
+}
+.hero__question {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1.15rem;
+  background: rgba(251, 250, 247, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--c-line);
+  border-radius: 999px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-ink);
+  text-decoration: none;
+  transition: all 0.25s var(--ease);
+}
+.hero__question svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--c-accent);
+  transition: transform 0.25s var(--ease);
+  flex-shrink: 0;
+}
+.hero__question:hover {
+  background: #ffffff;
+  border-color: var(--c-accent);
+  color: var(--c-accent);
+  transform: translateX(4px);
+  box-shadow: 0 4px 14px rgba(35, 68, 44, 0.08);
+}
+.hero__question:hover svg {
+  transform: translateX(3px);
+}
+
+
+/* ---------- Compact 2x2 Pillars Grid ---------- */
+.about-card__grid--compact {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 1.25rem 1.5rem !important;
+  padding-top: 1.5rem !important;
+}
+.about-card__grid--compact .about-pillar {
+  gap: 0.35rem;
+}
+.about-card__grid--compact .about-pillar h4 {
+  font-size: var(--fs-base);
+  margin: 0;
+  color: var(--c-ink);
+}
+.about-card__grid--compact .about-pillar p {
+  font-size: var(--fs-sm);
+  color: var(--c-ink-2);
+  margin: 0;
+  line-height: 1.4;
+}
+@media (max-width: 580px) {
+  .about-card__grid--compact {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+}
+
+
+/* ---------- Compact Modern Footer ---------- */
+.footer--compact {
+  padding: 3rem 0 2rem;
+}
+.footer__compact {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(251, 250, 247, 0.12);
+}
+.footer__brand-line {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+.footer__tagline {
+  font-size: var(--fs-xs);
+  color: rgba(251, 250, 247, 0.7);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem 1.75rem;
+}
+.footer__nav a {
+  font-size: var(--fs-sm);
+  color: rgba(251, 250, 247, 0.85);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.footer__nav a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+@media (max-width: 768px) {
+  .footer__compact {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+  .footer__nav {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+
+/* ---------- Back to Top Floating Button ---------- */
+.back-to-top {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 5.5rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: var(--c-ink);
+  color: var(--c-bg);
+  border: 1px solid rgba(251, 250, 247, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 90;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), background 0.2s;
+}
+.back-to-top.is-visible {
+  opacity: 0.92;
+  visibility: visible;
+  transform: translateY(0);
+}
+.back-to-top:hover {
+  opacity: 1;
+  background: var(--c-accent);
+  transform: translateY(-2px);
+}
+.back-to-top svg {
+  width: 20px;
+  height: 20px;
+}
+@media (max-width: 640px) {
+  .back-to-top {
+    right: 1rem;
+    bottom: 5rem;
+    width: 40px;
+    height: 40px;
+  }
+}

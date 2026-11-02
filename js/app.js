@@ -148,40 +148,31 @@
     }
   }
 
-  /* ---------- Footer ---------- */
+  /* ---------- Footer (Compact & Elegant, No Duplicates) ---------- */
   function renderFooter() {
     const host = $('[data-footer]');
     if (!host) return;
     const L = S.legal;
-    const daily = APTS.filter((a) => a.type === 'daily').map((a) => `<li><a href="${a.url}">${esc(a.title)}</a></li>`).join('');
-    const long = APTS.filter((a) => a.type === 'long').map((a) => `<li><a href="${a.url}">${esc(a.title)}</a></li>`).join('');
     host.outerHTML = `
-      <footer class="footer" id="contacts-footer">
+      <footer class="footer footer--compact" id="contacts-footer">
         <div class="wrap">
-          <div class="footer__grid">
-            <div>
+          <div class="footer__compact">
+            <div class="footer__brand-line">
               <a class="logo logo--footer" href="index.html" aria-label="${S.brand}">
-                <img src="img/logos/logo-header-white.png" alt="APART PRO" class="logo__img" width="140" height="42">
+                <img src="img/logos/logo-header-white.png" alt="APART PRO" class="logo__img" width="130" height="39">
               </a>
-              <p>Квартиры в Волгограде посуточно и на длительный срок. Сервис, как в отеле, — в отдельной квартире.</p>
+              <span class="footer__tagline">Квартиры с сервисом как в отеле · ${esc(S.city)}</span>
             </div>
-            <div><h4>Посуточно</h4><ul>${daily}</ul></div>
-            <div><h4>От месяца</h4><ul>${long}</ul></div>
-            <div>
-              <h4>Персональный менеджер</h4>
-              <p style="margin-bottom:.6rem;color:rgba(251,250,247,.9)">Всегда на связи для гостей</p>
-              <p style="margin-bottom:.4rem"><a href="${tel}" style="font-size:var(--fs-md);font-weight:600">${S.manager.phonePretty}</a></p>
-              <p style="margin-bottom:1rem"><a href="mailto:${L.email}" style="font-size:var(--fs-sm);color:rgba(251,250,247,.85);text-decoration:underline">${esc(L.email)}</a></p>
-              <div class="footer__messengers">
-                <a class="btn btn--light btn--sm" href="${tgUrl()}" target="_blank" rel="noopener" aria-label="Telegram">${I.tg} Telegram</a>
-                <a class="btn btn--light btn--sm" href="${maxUrl()}" ${S.manager.max ? 'target="_blank" rel="noopener"' : ''} aria-label="MAX">${I.max} MAX</a>
-              </div>
-            </div>
+            <nav class="footer__nav" aria-label="Навигация по сайту">
+              <a href="index.html#catalog">Квартиры</a>
+              <a href="rules.html">Правила проживания</a>
+              <a href="privacy.html">Конфиденциальность</a>
+              <a href="consent.html">Согласие на обработку данных</a>
+            </nav>
           </div>
           <div class="footer__legal">
             <p>${pending(L.name, 'Наименование исполнителя — уточняется')} · ИНН ${pending(L.inn)}${L.kpp ? ` · КПП ${esc(L.kpp)}` : ''} · ОГРН ${pending(L.ogrn)}${L.address ? ` · ${esc(L.address)}` : ''} · <a href="mailto:${L.email}" style="color:inherit;text-decoration:underline">${esc(L.email)}</a></p>
-            <p>Информация на сайте носит справочный характер и не является публичной офертой (ст. 437 ГК РФ). Стоимость и наличие свободных дат подтверждает персональный менеджер.</p>
-            <p><a href="privacy.html">Политика обработки персональных данных</a> · <a href="consent.html">Согласие на обработку персональных данных</a> · <a href="rules.html">Правила проживания и бронирования</a></p>
+            <p>Информация на сайте носит справочный характер и не является публичной офертой (ст. 437 ГК РФ).</p>
             <p>© ${new Date().getFullYear()} ${brandHtml()} (${esc(S.brandRu)})</p>
           </div>
         </div>
@@ -352,9 +343,25 @@
 
     const load = (i) => { const im = slides[i]; if (im && !im.src) im.src = im.dataset.src; };
     const go = (i) => {
+      const oldIdx = idx;
       idx = (i + items.length) % items.length;
       [idx, idx + 1, idx - 1].forEach((k) => load((k + items.length) % items.length));
-      track.style.transform = `translateX(${-idx * 100}%)`;
+      
+      const isWrap = (oldIdx === items.length - 1 && idx === 0) || (oldIdx === 0 && idx === items.length - 1);
+      if (isWrap) {
+        track.style.transition = 'none';
+        track.style.opacity = '0.25';
+        track.style.transform = `translateX(${-idx * 100}%)`;
+        requestAnimationFrame(() => {
+          track.style.transition = 'opacity 0.28s ease, transform 0.35s var(--ease)';
+          track.style.opacity = '1';
+        });
+      } else {
+        track.style.transition = 'transform 0.35s var(--ease)';
+        track.style.opacity = '1';
+        track.style.transform = `translateX(${-idx * 100}%)`;
+      }
+
       $('[data-lb-count]', box).textContent = `${idx + 1} / ${items.length}`;
       $('[data-lb-caption]', box).textContent = items[idx].caption;
     };
@@ -971,6 +978,7 @@ function initReveal() {
   renderFooter();
   renderModal();
   renderFloatingWidgets();
+  initBackToTop();
   bindContacts();
   renderCookie();
   initReveal();
