@@ -562,7 +562,7 @@ li { text-wrap: pretty; }
 .contact-card::before { content: ''; position: absolute; width: 380px; height: 380px; right: -140px; top: -160px; border-radius: 50%; background: radial-gradient(circle, rgba(173, 107, 60, .45), transparent 70%); }
 .contact-card h2 { font-size: var(--fs-h2); position: relative; }
 .contact-card p { color: rgba(251, 250, 247, .75); position: relative; max-width: 44ch; margin-top: var(--sp-2); }
-.contact-card__phone { display: block; font-family: var(--f-display); font-weight: 700; font-size: clamp(2rem, 8vw, 3rem); margin: var(--sp-3) 0; position: relative; }
+.contact-card__phone { display: block; font-family: var(--f-display); font-weight: 700; font-size: clamp(1.4rem, 4.5vw, 2.1rem); margin: var(--sp-2) 0 var(--sp-3); position: relative; }
 .contact-card__actions { display: grid; gap: .7rem; position: relative; }
 .contact-card .btn--ghost { color: var(--c-bg); }
 
@@ -1597,90 +1597,118 @@ body.is-ready .hero__anim:nth-child(5) { opacity: 1; transform: translateY(0); t
 
 
 /* ---------- Back to Top Floating Button ---------- */
-
 .back-to-top {
-
   position: fixed;
-
-  right: 1.5rem;
-
-  bottom: 5.5rem;
-
-  width: 44px;
-
-  height: 44px;
-
-  border-radius: 999px;
-
-  background: var(--c-ink);
-
-  color: var(--c-bg);
-
-  border: 1px solid rgba(251, 250, 247, 0.2);
-
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  cursor: pointer;
-
   z-index: 90;
-
   opacity: 0;
-
   visibility: hidden;
-
   transform: translateY(12px);
-
-  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), background 0.2s;
-
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), background 0.2s, color 0.2s, border-color 0.2s;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--c-ink);
+  border: 1px solid var(--c-line);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 8px 24px -4px rgba(24, 18, 12, 0.16);
+  cursor: pointer;
 }
-
 .back-to-top.is-visible {
-
-  opacity: 0.92;
-
+  opacity: 0.94;
   visibility: visible;
-
   transform: translateY(0);
-
 }
-
 .back-to-top:hover {
-
   opacity: 1;
-
   background: var(--c-accent);
-
+  color: #fff;
+  border-color: var(--c-accent);
   transform: translateY(-2px);
-
+  box-shadow: 0 10px 28px -4px rgba(173, 107, 60, 0.45);
 }
-
 .back-to-top svg {
-
   width: 20px;
-
   height: 20px;
-
 }
-
-@media (max-width: 640px) {
-
+@media (min-width: 720px) {
   .back-to-top {
-
-    right: 1rem;
-
-    bottom: 5rem;
-
-    width: 40px;
-
-    height: 40px;
-
+    right: 98px; /* Directly left of 58px FAB button (28px + 58px + 12px) */
+    bottom: 35px; /* Vertically centered with FAB button */
+    width: 44px;
+    height: 44px;
   }
-
+}
+@media (max-width: 719px) {
+  .back-to-top {
+    right: 1.25rem;
+    bottom: calc(1.25rem + env(safe-area-inset-bottom));
+    width: 46px;
+    height: 46px;
+  }
 }
 
+
+
+/* ---------- Single Clean Divider in Footer ---------- */
+.footer--compact .footer__legal {
+  border-top: none !important;
+  margin-top: 1.5rem !important;
+  padding-top: 0 !important;
+}
+
+
+/* ---------- Reviews Mobile Swipe with Peek & Visual Affordance ---------- */
+.reviews-hint {
+  display: none;
+}
+@media (max-width: 759px) {
+  .reviews-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 0.6rem;
+    padding: 0.35rem 0.85rem;
+    background: rgba(173, 107, 60, 0.08);
+    border: 1px solid rgba(173, 107, 60, 0.2);
+    border-radius: 999px;
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    color: var(--c-accent);
+  }
+  .reviews-grid {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    gap: 1rem !important;
+    padding: 0.5rem 1.25rem 1.25rem !important;
+    margin-left: -1.25rem !important;
+    margin-right: -1.25rem !important;
+    scrollbar-width: thin;
+    scrollbar-color: var(--c-accent) transparent;
+  }
+  .reviews-grid::-webkit-scrollbar {
+    height: 4px;
+  }
+  .reviews-grid::-webkit-scrollbar-track {
+    background: rgba(35, 68, 44, 0.06);
+    border-radius: 999px;
+    margin: 0 1.25rem;
+  }
+  .reviews-grid::-webkit-scrollbar-thumb {
+    background: var(--c-accent);
+    border-radius: 999px;
+  }
+  .reviews-grid .review {
+    flex: 0 0 84% !important;
+    min-width: 84% !important;
+    max-width: 84% !important;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
