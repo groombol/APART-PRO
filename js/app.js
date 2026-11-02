@@ -969,6 +969,31 @@ function initReveal() {
     document.addEventListener('touchstart', onIntent, { passive: true });
   }
 
+  /* ---------- Back to Top Floating Button ---------- */
+  function initBackToTop() {
+    let btn = $('.back-to-top');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.className = 'back-to-top';
+      btn.type = 'button';
+      btn.setAttribute('aria-label', 'Наверх');
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>`;
+      document.body.appendChild(btn);
+    }
+    const onScroll = () => {
+      if (window.scrollY > 400) {
+        btn.classList.add('is-visible');
+      } else {
+        btn.classList.remove('is-visible');
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    onScroll();
+  }
+
   initPreloader();
   initHeroCanvas();
   renderHeader();
