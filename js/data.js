@@ -26,7 +26,10 @@ window.SITE = {
     kpp: '524901001',
     ogrn: '1205200038482',
     address: 'Российская Федерация, 606016, Нижегородская обл., г. Дзержинск, пер. Учебный 8-4',
-    email: 'kompany.pro@mail.ru'
+    email: 'kompany.pro@mail.ru',
+    phone: '+79519101727',
+    phonePretty: '+7 (951) 910-17-27',
+    guestEmail: 'apart.pro@mail.ru'
   },
   checkIn: '15:00',
   checkOut: '12:00'

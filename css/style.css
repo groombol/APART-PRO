@@ -261,11 +261,15 @@ li { text-wrap: pretty; }
   font-style: italic;
 }
 .hero__lead {
-  font-size: var(--fs-lg);
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.2rem, 2.6vw, 1.55rem);
+  color: var(--c-accent);
+  letter-spacing: -0.01em;
+  line-height: 1.35;
   max-width: 48ch;
-  margin: var(--sp-3) 0 var(--sp-4);
-  color: var(--c-ink-2);
-  line-height: 1.6;
+  margin: var(--sp-2) 0 var(--sp-4);
 }
 .hero__cta {
   display: flex;
@@ -1117,11 +1121,16 @@ li { text-wrap: pretty; }
   transition: opacity .8s cubic-bezier(0.16, 1, 0.3, 1), transform .8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
-body.is-ready .hero__anim:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: .05s; }
-body.is-ready .hero__anim:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: .20s; }
-body.is-ready .hero__anim:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: .35s; }
-body.is-ready .hero__anim:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: .50s; }
-body.is-ready .hero__anim:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: .65s; }
+body.is-ready .hero__anim {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+body.is-ready .hero__anim:nth-child(1) { transition-delay: .05s; }
+body.is-ready .hero__anim:nth-child(2) { transition-delay: .18s; }
+body.is-ready .hero__anim:nth-child(3) { transition-delay: .30s; }
+body.is-ready .hero__anim:nth-child(4) { transition-delay: .42s; }
+body.is-ready .hero__anim:nth-child(5) { transition-delay: .54s; }
+body.is-ready .hero__anim:nth-child(6) { transition-delay: .66s; }
 
 @media (prefers-reduced-motion: reduce) {
   .hero__anim { opacity: 1 !important; transform: none !important; transition: none !important; }
@@ -1744,4 +1753,46 @@ body.is-ready .hero__anim:nth-child(5) { opacity: 1; transform: translateY(0); t
   .section {
     padding: clamp(2.4rem, 6vw, 3.2rem) 0;
   }
+}
+
+/* ---------- Hero CTA Direct Phone (Right-aligned on desktop, no word 'звоните') ---------- */
+.hero__phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--c-ink);
+  text-decoration: none;
+  margin-left: clamp(2.2rem, 4.5vw, 4.2rem);
+  padding: 0.5rem 0.6rem;
+  transition: color 0.25s, transform 0.25s;
+  white-space: nowrap;
+}
+.hero__phone svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--c-accent);
+  flex-shrink: 0;
+}
+.hero__phone:hover {
+  color: var(--c-accent);
+  transform: translateX(2px);
+}
+@media (max-width: 768px) {
+  .hero__phone {
+    margin-left: 0;
+    margin-top: 0.5rem;
+    width: 100%;
+    justify-content: flex-start;
+    font-size: var(--fs-md);
+  }
+}
+
+/* Callout actions row in how-to-book */
+.how-callout__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }

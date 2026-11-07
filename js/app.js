@@ -161,7 +161,7 @@
               <a class="logo logo--footer" href="index.html" aria-label="${S.brand}">
                 <img src="img/logos/logo-header-white.png" alt="APART PRO" class="logo__img" width="130" height="39">
               </a>
-              <span class="footer__tagline">Квартиры с сервисом как в отеле · ${esc(S.city)}</span>
+              <span class="footer__tagline">КВАРТИРЫ С ОТЕЛЬНЫМ СЕРВИСОМ · ${esc(S.city)}</span>
             </div>
             <nav class="footer__nav" aria-label="Навигация по сайту">
               <a href="index.html#catalog">Квартиры</a>
@@ -171,7 +171,7 @@
             </nav>
           </div>
           <div class="footer__legal">
-            <p>${pending(L.name, 'Наименование исполнителя — уточняется')} · ИНН ${pending(L.inn)}${L.kpp ? ` · КПП ${esc(L.kpp)}` : ''} · ОГРН ${pending(L.ogrn)}${L.address ? ` · ${esc(L.address)}` : ''} · <a href="mailto:${L.email}" style="color:inherit;text-decoration:underline">${esc(L.email)}</a></p>
+            <p>${pending(L.name, 'Наименование исполнителя — уточняется')} · ИНН ${pending(L.inn)}${L.kpp ? ` · КПП ${esc(L.kpp)}` : ''} · ОГРН ${pending(L.ogrn)}${L.address ? ` · Юридический адрес: ${esc(L.address)}` : ''} · <a href="mailto:${L.email}" style="color:inherit;text-decoration:underline">${esc(L.email)}</a></p>
             <p>Информация на сайте носит справочный характер и не является публичной офертой (ст. 437 ГК РФ).</p>
             <p>© ${new Date().getFullYear()} ${brandHtml()} (${esc(S.brandRu)})</p>
           </div>
@@ -698,6 +698,10 @@
     });
     $$('[data-legal]').forEach((el) => {
       el.innerHTML = pending(S.legal[el.dataset.legal], el.dataset.placeholder || 'уточняется');
+    });
+    $$('[data-legal-tel]').forEach((a) => {
+      a.href = 'tel:' + (S.legal.phone || '79519101727');
+      if (!a.textContent.trim()) a.textContent = S.legal.phonePretty || '+7 (951) 910-17-27';
     });
     // Инициализируем маску для всех телефонных полей на странице
     $$('input[type="tel"]').forEach(initPhoneMask);
